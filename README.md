@@ -4,9 +4,9 @@ Screenshot Classifier is a Python command-line application that trains, evaluate
 and exports a multi-task classifier for mobile screenshots. The classifier
 predicts both a screen category and a content-safety category.
 
-The repository contains the training application and its supporting quality
-tooling. It does not include the labeled screenshot corpus or a dataset builder.
-Training requires a previously built dataset artifact under `dataset/`.
+The repository contains the dataset builder, training application, and supporting
+quality tooling. It does not include the labeled screenshot corpus. Raw labeled
+screenshots belong directly under `dataset/`.
 
 ## Contents
 
@@ -20,9 +20,11 @@ Training requires a previously built dataset artifact under `dataset/`.
 
 ## How it works
 
-The training command reads a checked WebDataset artifact with train, validation,
-and test splits. It selects eligible screen and safety labels, balances samples
-for both prediction tasks, and fits a supported image backbone.
+The dataset command validates and deduplicates the images, assigns reproducible
+train, validation, and test splits within each screen-and-safety label group,
+and writes a checked WebDataset artifact below `output/dataset`. The training
+command reads that artifact, balances both prediction tasks, and fits a supported
+image backbone.
 
 After training, the command evaluates the selected checkpoint and exports a
 validated ONNX model. The export also includes model weights, preprocessing
@@ -52,19 +54,29 @@ Set `HF_TOKEN` in `.env`. The local file is ignored by Git.
 
 ## Prepare a dataset
 
-Place a complete dataset artifact at
-`dataset/phone-screenshots` to use the default command. The artifact
-must contain the data shards and Parquet manifests for the train, validation,
-and test splits.
+Place labeled screenshots directly under `dataset/`, grouped by screen and
+safety label. For example:
 
-To use another dataset directory, keep it below `dataset` and pass its
-repository-relative path:
-
-```shell
-mise run train -- --dataset dataset/<DATASET_NAME>
+```text
+dataset/
+├── app-store/
+│   └── safe/
+│       └── screenshot.png
+└── message/
+    └── chat/
+        ├── hot/
+        │   └── screenshot.png
+        └── safe/
+            └── screenshot.png
 ```
 
-Replace `<DATASET_NAME>` with the dataset directory name.
+The tracked `dataset/.gitkeep` preserves the directory while its images remain
+excluded from version control. The dataset command creates the train,
+validation, and test splits:
+
+```shell
+mise run dataset
+```
 
 ## Train the classifier
 
@@ -99,17 +111,17 @@ repository and visibility before running either command.
 Train and publish the completed export:
 
 ```shell
-mise run train -- --push --repo yapwithai/<MODEL_REPOSITORY>
+mise run train -- --push --repo screenshot-classifier
 ```
 
 Publish an existing validated export without training:
 
 ```shell
-mise run train -- --push-only --repo yapwithai/<MODEL_REPOSITORY>
+mise run train -- --push-only --repo screenshot-classifier
 ```
 
-Replace `<MODEL_REPOSITORY>` with the model repository name. Publishing
-requires `HF_TOKEN`. Repositories are private unless `--public` is present.
+Publishing requires `HF_TOKEN`. Repositories are private unless `--public` is
+present.
 
 ## Inspect results
 

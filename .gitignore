@@ -17,7 +17,8 @@ __pycache__/
 node_modules/
 
 # Local training datasets
-/dataset/
+/dataset/*
+!/dataset/.gitkeep
 
 # Tool caches and generated work directories
 .artifacts/

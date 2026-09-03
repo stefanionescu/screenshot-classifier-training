@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from src.shared.runtime.elapsed import ElapsedColumn
 from rich.progress import BarColumn, Progress, TaskID, TextColumn
-from src.shared.runtime.progress_column import MillisecondElapsedColumn
 
 if TYPE_CHECKING:
     from typing import Self
@@ -27,7 +27,7 @@ class ProgressBar:
             TextColumn("{task.percentage:>3.0f}%"),
             BarColumn(),
             TextColumn("{task.fields[completed_value]}/{task.fields[total_value]}"),
-            MillisecondElapsedColumn(),
+            ElapsedColumn(),
             transient=False,
         )
         self._task_id: TaskID = self._progress.add_task(

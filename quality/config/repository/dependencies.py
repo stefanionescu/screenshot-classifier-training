@@ -13,7 +13,10 @@ UV_TOOL_NAME = "uv"
 
 REQUIRED_DEPENDENCY_GROUPS = ("dev", "quality")
 ROOT_REQUIREMENTS_GLOB = "requirements*.txt"
-APPLICATION_TASKS = {"train": "src.cli.train"}
+APPLICATION_TASKS = {
+    "dataset": "src.cli.dataset",
+    "train": "src.cli.train",
+}
 POLICY_SCAN_ROOTS = (
     ".mise/tasks",
     "quality",
@@ -27,7 +30,7 @@ POLICY_FILE_IGNORED_PARTS = {
     ".git",
     ".venv",
     "__pycache__",
-    "images",
+    "dataset",
     "models",
     "node_modules",
     "output",

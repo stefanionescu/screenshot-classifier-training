@@ -166,7 +166,7 @@
             "is_excluded": true
         },
         {
-            "path_regexes": ["^src/shared/runtime/progress_column\\.py$"],
+            "path_regexes": ["^src/shared/runtime/elapsed\\.py$"],
             "languages": ["python"],
             "categories": ["methods"],
             "names": ["render"],

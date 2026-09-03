@@ -1,4 +1,4 @@
-"""Parse training options and invoke the training application boundary."""
+"""Parse training options and start the training application."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ import math
 import argparse
 from typing import TYPE_CHECKING
 from src.errors import TrainingError
-from src.domains.train.run import run_train
-from src.state.train.training import TrainArgs
-from src.cli.lib.boundary import cli_error_boundary
-from src.cli.lib.env import configure_cli_environment
-from src.config.train.artifacts import ONNX_MIN_DIMENSION
-from src.config.train.cli import (
+from src.domains.run import run_train
+from src.cli.errors import report_errors
+from src.state.training import TrainArgs
+from src.cli.env import configure_cli_environment
+from src.config.artifacts import ONNX_MIN_DIMENSION
+from src.config.cli import (
     DEFAULT_LR,
     DEFAULT_SEED,
     DEFAULT_EPOCHS,
@@ -23,7 +23,7 @@ from src.config.train.cli import (
     TRAIN_CLI_DESCRIPTION,
     DEFAULT_GRAD_ACCUM_STEPS,
 )
-from src.config.train.model import (
+from src.config.model import (
     DEFAULT_MODEL,
     DEFAULT_DATASET,
     SAFETY_MAX_REPEAT,
@@ -250,7 +250,7 @@ def _fail_invalid_args(checks: tuple[tuple[bool, str], ...]) -> None:
 def main() -> None:
     """Run the command."""
     configure_cli_environment()
-    with cli_error_boundary():
+    with report_errors():
         run_train(parse_args())
 
 

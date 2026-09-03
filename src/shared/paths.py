@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+from src.config.image import IMAGE_CONFIG
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+IMAGE_ROOT = PROJECT_ROOT / IMAGE_CONFIG["images_dir"]
 OUTPUT_ROOT = PROJECT_ROOT / "output"
 
 

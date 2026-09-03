@@ -6,13 +6,11 @@ predicts both a screen category and a content-safety category.
 
 The repository contains the training application and its supporting quality
 tooling. It does not include the labeled screenshot corpus or a dataset builder.
-The image tree is an empty placeholder, and training requires a previously built
-dataset artifact.
+Training requires a previously built dataset artifact under `dataset/`.
 
 ## Contents
 
 - [How it works](#how-it-works)
-- [Requirements](#requirements)
 - [Set up the project](#set-up-the-project)
 - [Prepare a dataset](#prepare-a-dataset)
 - [Train the classifier](#train-the-classifier)
@@ -30,21 +28,6 @@ After training, the command evaluates the selected checkpoint and exports a
 validated ONNX model. The export also includes model weights, preprocessing
 settings, labels, the training recipe, evaluation results, and a standalone
 Python inference module.
-
-## Requirements
-
-Run the project on macOS or Linux with:
-
-- Git.
-- [mise](https://mise.jdx.dev/getting-started.html).
-- Network access during setup and model download.
-- A built screenshot dataset artifact stored below the repository's
-  `output` directory.
-- Sufficient memory and storage for the selected model, dataset, checkpoints,
-  and exports.
-
-The managed environment uses Python 3.12. The mise tasks install the pinned
-Python, JavaScript, security, formatting, and linting tools.
 
 ## Set up the project
 
@@ -70,20 +53,18 @@ Set `HF_TOKEN` in `.env`. The local file is ignored by Git.
 ## Prepare a dataset
 
 Place a complete dataset artifact at
-`output/dataset/phone-screenshots` to use the default command. The artifact
+`dataset/phone-screenshots` to use the default command. The artifact
 must contain the data shards and Parquet manifests for the train, validation,
 and test splits.
 
-To use another dataset directory, keep it below `output` and pass its
+To use another dataset directory, keep it below `dataset` and pass its
 repository-relative path:
 
 ```shell
-mise run train -- --dataset output/dataset/<DATASET_NAME>
+mise run train -- --dataset dataset/<DATASET_NAME>
 ```
 
-Replace `<DATASET_NAME>` with the dataset directory name. The
-`images/classification/classified` directory is only a placeholder and is not
-read by the training command.
+Replace `<DATASET_NAME>` with the dataset directory name.
 
 ## Train the classifier
 

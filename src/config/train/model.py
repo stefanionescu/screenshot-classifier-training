@@ -4,7 +4,7 @@ from __future__ import annotations
 
 ORG_NAME = "yapwithai"
 DATASET_REPO = "yapwithai/phone-screenshots"
-DEFAULT_DATASET = "output/dataset/phone-screenshots"
+DEFAULT_DATASET = "dataset/phone-screenshots"
 DEFAULT_MODEL = "timm/mobilenetv4_conv_medium.e250_r384_in12k"
 SUPPORTED_MODELS = (
     "timm/mobilenetv4_conv_medium.e250_r384_in12k",

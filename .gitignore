@@ -16,6 +16,9 @@ __pycache__/
 # Dependency installs
 node_modules/
 
+# Local training datasets
+/dataset/
+
 # Tool caches and generated work directories
 .artifacts/
 cache/

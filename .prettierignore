@@ -3,8 +3,7 @@
 .venv/
 node_modules/
 bun.lock
-images/classification/
-images/sanitization/
+dataset/
 src/prompts/**/text/**/*.md
 models/
 output/

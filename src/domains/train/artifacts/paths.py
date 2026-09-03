@@ -25,14 +25,14 @@ def safe_name(value: str, flag: str) -> str:
 
 
 def validated_dataset_path(value: str) -> Path:
-    """Resolve a training dataset confined to the repository output tree."""
+    """Resolve a training dataset confined to the repository dataset tree."""
     root = repo_root()
     dataset_path = (root / value).resolve()
-    output_path = (root / "output").resolve()
+    dataset_root = (root / "dataset").resolve()
     try:
-        dataset_path.relative_to(output_path)
+        dataset_path.relative_to(dataset_root)
     except ValueError as error:
-        msg = "--dataset must point inside the repo output/ directory."
+        msg = "--dataset must point inside the repo dataset/ directory."
         raise TrainingError(msg) from error
     if not (dataset_path / "data").is_dir():
         msg = "--dataset must contain the required data shards."

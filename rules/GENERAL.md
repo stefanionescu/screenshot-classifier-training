@@ -3,9 +3,9 @@
 These rules apply to all files in this repository.
 
 This repository is a Python CLI project for training and exporting the screenshot
-classifier. Application code lives under `src/`. The empty
-`images/classification/` tree reserves the corpus location without storing its
-image data. All user-facing commands are mise tasks that call
+classifier. Application code lives under `src/`. The `dataset/` tree is reserved
+for local training data and is excluded from version control. All user-facing
+commands are mise tasks that call
 `uv run python -m src.cli.<command>`.
 
 TS and JS are not application source languages in this repository. Bun and Node
@@ -338,9 +338,9 @@ generated model-card text.
 Do not modify `AGENTS.md`, `CLAUDE.md`, or files under `rules/` unless the user
 explicitly asks for rule changes.
 
-`images/classification/` reserves the external data-corpus location. Add or
-rewrite its image data only as part of an approved migration. `models/` and
-`output/` are generated runtime artifacts.
+`dataset/` contains local training input. Add or rewrite its data only as part
+of an approved migration. `models/` and `output/` are generated runtime
+artifacts.
 
 ## Language Discipline
 

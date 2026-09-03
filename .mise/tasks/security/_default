@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+status=0
+bash quality/security/gitleaks/run.sh || status=1
+bash quality/security/bearer/run.sh || status=1
+bash quality/security/pip-audit/run.sh || status=1
+bash quality/security/osv/run.sh || status=1
+bash quality/security/bandit/run.sh || status=1
+# shellcheck source=../../../quality/config/security/semgrep/environment.sh
+source quality/config/security/semgrep/environment.sh
+semgrep_arguments=(semgrep "${SEMGREP_FLAGS[@]}")
+for config_file in "${SEMGREP_LOCAL_CONFIGS[@]}"; do
+  semgrep_arguments+=(--config "${config_file}")
+done
+semgrep_arguments+=("${SEMGREP_SCAN_PATHS[@]}")
+"${semgrep_arguments[@]}" || status=1
+uv run python -m quality.security.codeql.paths || status=1
+bash quality/security/codeql/scan.sh || status=1
+exit "${status}"

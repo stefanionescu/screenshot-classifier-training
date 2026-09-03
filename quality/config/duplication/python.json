@@ -1,0 +1,11 @@
+{
+    "threshold": 4,
+    "reporters": ["console"],
+    "format": ["python"],
+    "ignore": ["**/.artifacts/**", "**/.venv/**", "**/__pycache__/**", "**/test/results/**"],
+    "path": ["../../../src/", "../../"],
+    "minLines": 8,
+    "minTokens": 40,
+    "mode": "strict",
+    "output": ".artifacts/cpd/python"
+}

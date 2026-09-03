@@ -1,0 +1,7 @@
+{
+    "pythonVersion": "3.12",
+    "typeCheckingMode": "strict",
+    "extraPaths": ["."],
+    "include": ["quality", "src"],
+    "exclude": [".artifacts", ".ruff_cache", ".venv", "__pycache__"]
+}

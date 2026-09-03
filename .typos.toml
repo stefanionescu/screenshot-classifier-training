@@ -1,0 +1,25 @@
+[files]
+extend-exclude = [
+    "node_modules",
+    ".venv",
+    ".artifacts",
+    ".cache",
+    "images/classification",
+    "models",
+    "output",
+]
+
+[default.extend-words]
+certifi = "certifi"
+grok = "grok"
+nsfw = "nsfw"
+OpenRouter = "OpenRouter"
+openrouter = "openrouter"
+Sightengine = "Sightengine"
+tuplets = "tuplets"
+UINotes = "UINotes"
+
+[default.extend-identifiers]
+"836a9dfeabe4a4ba" = "836a9dfeabe4a4ba"
+"a7ba606584b22fd1" = "a7ba606584b22fd1"
+detai = "detai"

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+status=0
+uv run ruff format --check . || status=1
+uv run ruff check . || status=1
+mise run type || status=1
+PYTHONPATH="${REPO_ROOT}" uv run lint-imports --cache-dir .artifacts/import-linter || status=1
+uv run pydoclint --allow-init-docstring true src quality || status=1
+uv run interrogate --fail-under 100 src quality || status=1
+uv run python -m quality.python.runner || status=1
+uv run deptry src quality || status=1
+uv run vulture src quality || status=1
+exit "${status}"

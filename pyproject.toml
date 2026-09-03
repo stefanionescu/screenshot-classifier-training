@@ -1,0 +1,268 @@
+[project]
+name = "screenshot-classifier"
+version = "0.1.0"
+description = "Train and export a multi-task phone screenshot classifier."
+readme = "README.md"
+requires-python = "==3.12.*"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "huggingface-hub==1.21",
+  "lightning==2.6.5",
+  "numpy==2.5",
+  "onnx==1.22",
+  "onnxconverter-common==1.16",
+  "onnxruntime==1.27",
+  "pillow==12.3",
+  "pyarrow==24",
+  "python-dotenv==1.2.2",
+  "rich==15",
+  "safetensors==0.8",
+  "timm==1.0.27",
+  "torch==2.13",
+]
+
+[dependency-groups]
+dev = [
+  { include-group = "quality" },
+]
+quality = [
+  "bandit[toml]==1.9.4",
+  "basedpyright==1.39.9",
+  "cyclonedx-bom==7.3",
+  "deptry==0.25.1",
+  "import-linter==2.12",
+  "interrogate==1.7",
+  "packaging==25",
+  "pip-audit==2.10.1",
+  "pip-licenses==5.5.5",
+  "pydoclint==0.9",
+  "pyproject-fmt==2.25.1",
+  "ruff==0.15.20",
+  "validate-pyproject==0.25",
+  "vulture==2.16",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+indent-width = 4
+src = [
+  ".",
+]
+exclude = [
+  ".artifacts",
+  ".cache",
+  ".git",
+  ".ruff_cache",
+  ".venv",
+  "__pycache__",
+  "build",
+  "dist",
+  "node_modules",
+]
+format.indent-style = "space"
+format.quote-style = "double"
+format.line-ending = "lf"
+format.docstring-code-format = true
+lint.select = [
+  "A",
+  "ANN",
+  "ARG",
+  "ASYNC",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "COM",
+  "D",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "F",
+  "FA",
+  "FBT",
+  "FIX",
+  "FLY",
+  "FURB",
+  "G",
+  "ICN",
+  "INP",
+  "ISC",
+  "LOG",
+  "N",
+  "PERF",
+  "PGH",
+  "PIE",
+  "PL",
+  "PT",
+  "PTH",
+  "PYI",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "SIM",
+  "SLF",
+  "SLOT",
+  "T10",
+  "T20",
+  "TC",
+  "TD",
+  "TRY",
+  "UP",
+  "W",
+  "YTT",
+]
+lint.ignore = [
+  "COM812",
+  "D203",
+  "D213",
+]
+lint.fixable = [
+  "ALL",
+]
+lint.unfixable = []
+lint.mccabe.max-complexity = 8
+lint.pep8-naming.extend-ignore-names = [
+  "setUp",
+  "setUpClass",
+  "tearDown",
+  "tearDownClass",
+]
+lint.pylint.max-args = 5
+lint.pylint.max-bool-expr = 4
+lint.pylint.max-branches = 8
+lint.pylint.max-locals = 10
+lint.pylint.max-public-methods = 12
+lint.pylint.max-returns = 4
+lint.pylint.max-statements = 30
+
+[tool.pydoclint]
+allow-init-docstring = true
+
+[tool.interrogate]
+fail-under = 100
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = false
+ignore-setters = false
+ignore-overloaded-functions = false
+exclude = [
+  ".artifacts",
+  ".cache",
+  ".venv",
+  "build",
+  "dist",
+  "node_modules",
+]
+verbose = 1
+omit-covered-files = false
+
+[tool.deptry]
+exclude = [
+  ".artifacts",
+  ".cache",
+  ".git",
+  ".ruff_cache",
+  ".venv",
+  "__pycache__",
+  "build",
+  "dist",
+  "node_modules",
+]
+ignore_notebooks = true
+per_rule_ignores = { DEP002 = [
+  "bandit",
+  "basedpyright",
+  "cyclonedx-bom",
+  "deptry",
+  "interrogate",
+  "import-linter",
+  "pip-audit",
+  "pip-licenses",
+  "pydoclint",
+  "pyproject-fmt",
+  "ruff",
+  "validate-pyproject",
+  "vulture",
+], DEP004 = [
+  "packaging",
+] }
+known_first_party = [
+  "quality",
+  "src",
+]
+
+[tool.vulture]
+paths = [
+  "quality",
+  "src",
+]
+exclude = [
+  ".artifacts",
+  ".cache",
+  ".venv",
+]
+ignore_names = []
+ignore_decorators = []
+make_whitelist = false
+min_confidence = 80
+sort_by_size = true
+
+[tool.bandit]
+exclude_dirs = [
+  ".artifacts",
+  ".cache",
+  ".venv",
+]
+skips = []
+
+[tool.importlinter]
+root_packages = [
+  "src",
+]
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "config must not import non-state runtime packages"
+type = "forbidden"
+source_modules = [
+  "src.config",
+]
+forbidden_modules = [
+  "src.cli",
+  "src.domains",
+  "src.errors",
+  "src.shared",
+]
+
+[[tool.importlinter.contracts]]
+name = "shared must not import cli command flow"
+type = "forbidden"
+source_modules = [
+  "src.shared",
+]
+forbidden_modules = [
+  "src.cli",
+]
+
+[[tool.importlinter.contracts]]
+name = "state must not import domain implementation"
+type = "forbidden"
+source_modules = [
+  "src.state",
+]
+forbidden_modules = [
+  "src.domains",
+]

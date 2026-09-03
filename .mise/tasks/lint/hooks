@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+status=0
+uv run python -m quality.shell.syntax --scope hooks || status=1
+shell_files=()
+shell_list="$(mktemp -t yap-hook-files-XXXXXX)"
+readonly shell_list
+trap 'rm -f "${shell_list}"' EXIT
+find .githooks -type f -print >"${shell_list}"
+while IFS= read -r shell_file; do
+  shell_files+=("${shell_file}")
+done <"${shell_list}"
+shellcheck --rcfile quality/config/shellcheckrc --check-sourced --severity=style "${shell_files[@]}" || status=1
+shfmt -d -i 2 -ci -s .githooks || status=1
+exit "${status}"

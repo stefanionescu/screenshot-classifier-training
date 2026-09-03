@@ -1,0 +1,10 @@
+.artifacts/
+.cache/
+.venv/
+node_modules/
+bun.lock
+images/classification/
+images/sanitization/
+src/prompts/**/text/**/*.md
+models/
+output/

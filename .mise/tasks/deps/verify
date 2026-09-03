@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+uv sync --all-groups --locked --check
+CI=1 bun install --frozen-lockfile --dry-run
+uv run python -m quality.repository.dependencies

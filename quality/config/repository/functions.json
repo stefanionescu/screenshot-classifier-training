@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "python": {
+        "max_trivial_ast_nodes": 10,
+        "max_trivial_statements": 2,
+        "allowlist": [
+            {
+                "path": "quality/python/rules/imports/graph.py",
+                "names": ["build_static_graph"],
+                "reason": "Stable graph-construction seam for focused rule tests"
+            }
+        ]
+    },
+    "shell": {
+        "max_trivial_statements": 2
+    }
+}

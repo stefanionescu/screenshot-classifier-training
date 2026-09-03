@@ -1,0 +1,61 @@
+# Local environments
+/venv/
+/.venv/
+.env
+.env.*
+!.env.example
+
+# Python build and runtime artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.nox
+
+# Dependency installs
+node_modules/
+
+# Tool caches and generated work directories
+.artifacts/
+cache/
+.cache/
+.grimp_cache/
+.ruff_cache/
+.import_linter_cache/
+.mypy_cache/
+.scannerwork/
+.sonarqube/
+.jscpd-report/
+
+# Security and quality reports
+gitleaks-report.json
+bearer-results.sarif
+bearer-report.json
+bandit-report.json
+semgrep-results.json
+osv-results.json
+
+# Logs and generated project outputs
+logs/
+*.log
+*.zip
+/output/
+/models/
+/train/
+
+# OS and editor files
+.DS_Store
+.DS_Store?
+.idea/
+.claude/
+.vscode/
+*.swp
+*.swo
+.cursor/
+
+# Lockfiles generated outside the Bun toolchain
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb

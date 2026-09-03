@@ -1,0 +1,23 @@
+globs:
+    - '**/*.md'
+config:
+    MD007:
+        indent: 4
+    MD013: false
+    MD060: false
+ignores:
+    - '.artifacts'
+    - '.artifacts/**'
+    - '.cache'
+    - '.cache/**'
+    - '.venv'
+    - '.venv/**'
+    - 'images/classification'
+    - 'images/classification/**'
+    - 'models'
+    - 'models/**'
+    - 'node_modules'
+    - 'node_modules/**'
+    - 'output'
+    - 'output/**'
+    - 'src/prompts/**/text/**/*.md'

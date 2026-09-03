@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+status=0
+mise run deps:verify || status=1
+mise run lint:policy || status=1
+mise run lint:hooks || status=1
+mise run lint:mise || status=1
+mise run lint:quality || status=1
+mise run lint:python || status=1
+mise run lint:shell || status=1
+mise run security || status=1
+mise run licenses || status=1
+exit "${status}"

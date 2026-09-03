@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+policy_scope="all"
+while (($# > 0)); do
+  case "$1" in
+    --scope)
+      (($# >= 2)) || exit 2
+      policy_scope="$2"
+      shift 2
+      ;;
+    *)
+      printf 'error: unknown policy argument: %s\n' "$1" >&2
+      exit 2
+      ;;
+  esac
+done
+case "${policy_scope}" in
+  all | staged) ;;
+  *)
+    printf 'error: --scope must be all or staged, got %s\n' "${policy_scope}" >&2
+    exit 2
+    ;;
+esac
+
+status=0
+uv run python -m quality.repository.integrity.config || status=1
+uv run python -m quality.repository.integrity.folder || status=1
+uv run python -m quality.repository.integrity.policies || status=1
+uv run python -m quality.repository.integrity.typecheck || status=1
+uv run python -m quality.repository.naming.runner --scope "${policy_scope}" || status=1
+uv run python -m quality.repository.functions.runner --scope "${policy_scope}" || status=1
+uv run python -m quality.repository.integrity.suppressions --scope "${policy_scope}" || status=1
+exit "${status}"

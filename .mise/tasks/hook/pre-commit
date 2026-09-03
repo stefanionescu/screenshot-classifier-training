@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+# shellcheck source=../../../quality/repository/hooks/steps.sh
+source "${REPO_ROOT}/quality/repository/hooks/steps.sh"
+
+[[ ${SKIP_HOOKS:-0} == "1" ]] && exit 0
+
+STAGED_FILES="$(git -C "${REPO_ROOT}" diff --cached --name-only --diff-filter=ACMTD)"
+readonly STAGED_FILES
+
+if [[ ${SKIP_ENV_CHECK:-0} != "1" ]] && grep -E '(^|/)\.env\.(prod|production)$' <<<"${STAGED_FILES}" >/dev/null 2>&1; then
+  printf '%s\n' 'error: production environment files are staged' >&2
+  exit 1
+fi
+hook_run_step "policy" SKIP_LINT mise run lint:policy -- --scope staged
+grep -E '(^pyproject\.toml$|^uv\.lock$)' <<<"${STAGED_FILES}" >/dev/null 2>&1 &&
+  hook_run_step "dependency guard" "" mise run deps:verify
+grep -E '\.py$|^pyproject\.toml$|^uv\.lock$|^quality/|^src/' <<<"${STAGED_FILES}" >/dev/null 2>&1 &&
+  hook_run_step "python" SKIP_PYTHON mise run lint:python
+grep -E '^\.githooks/' <<<"${STAGED_FILES}" >/dev/null 2>&1 &&
+  hook_run_step "hooks" SKIP_HOOKS_SELF mise run lint:hooks
+grep -E '^\.mise/tasks/' <<<"${STAGED_FILES}" >/dev/null 2>&1 &&
+  hook_run_step "mise" SKIP_HOOKS_SELF mise run lint:mise
+grep -E '(^\.githooks/|^\.mise/tasks/|^quality/.*\.sh$|\.sh$)' <<<"${STAGED_FILES}" >/dev/null 2>&1 &&
+  hook_run_step "shell" SKIP_SHELL mise run lint:shell
+grep -E '(^quality/|^rules/|^AGENTS\.md$|^CLAUDE\.md$|^README\.md$|^ADVANCED\.md$|^mise\.toml$|^package\.json$|^bun\.lock$|^\.markdownlint-cli2\.yaml$|^\.typos\.toml$|^\.prettierrc\.json$|^\.prettierignore$|^\.gitignore$)' <<<"${STAGED_FILES}" >/dev/null 2>&1 &&
+  hook_run_step "quality" SKIP_LINT mise run lint:quality
+hook_run_step "typos" SKIP_TYPOS typos .

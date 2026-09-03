@@ -1,0 +1,32 @@
+rules:
+    - id: yap-torch-no-jit-script
+      message: Do not call torch.jit.script while CVE-2025-3000 has no patched PyPI torch version.
+      severity: ERROR
+      languages:
+          - python
+      pattern: torch.jit.script(...)
+    - id: yap-torch-no-load
+      message: Do not call torch.load while CVE-2026-4538 has no TRT-compatible patched Torch version.
+      severity: ERROR
+      languages:
+          - python
+      pattern-either:
+          - pattern: torch.load(...)
+          - pattern: from torch import load
+    - id: yap-torch-no-lstm-cell
+      message: Do not call torch.lstm_cell while TRT requires Torch 2.9.x.
+      severity: ERROR
+      languages:
+          - python
+      pattern-either:
+          - pattern: torch.lstm_cell(...)
+          - pattern: from torch import lstm_cell
+    - id: yap-python-no-diskcache-direct-use
+      message: Do not add direct DiskCache usage while CVE-2025-69872 has no fixed release.
+      severity: ERROR
+      languages:
+          - python
+      pattern-either:
+          - pattern: import diskcache
+          - pattern: from diskcache import $NAME
+          - pattern: diskcache.Cache(...)

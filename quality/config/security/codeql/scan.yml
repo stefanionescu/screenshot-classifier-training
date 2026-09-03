@@ -1,0 +1,10 @@
+name: Repository Python CodeQL configuration
+paths:
+    - src
+    - quality
+paths-ignore:
+    - .artifacts
+    - .cache
+    - .venv
+    - '**/__pycache__/**'
+    - node_modules

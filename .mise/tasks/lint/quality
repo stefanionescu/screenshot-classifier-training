@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+status=0
+bunx markdownlint-cli2 || status=1
+bunx prettier . --check || status=1
+typos . || status=1
+uv run python -m quality.repository.dependencies || status=1
+uv run validate-pyproject pyproject.toml || status=1
+uv run pyproject-fmt --check pyproject.toml || status=1
+bunx jscpd --config quality/config/duplication/python.json || status=1
+bunx jscpd --config quality/config/duplication/bash.json || status=1
+exit "${status}"

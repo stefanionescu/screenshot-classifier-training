@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="${MISE_PROJECT_ROOT:-$(git rev-parse --show-toplevel)}"
+cd "${REPO_ROOT}"
+
+# shellcheck source=../../../quality/repository/hooks/steps.sh
+source "${REPO_ROOT}/quality/repository/hooks/steps.sh"
+
+[[ ${SKIP_HOOKS:-0} == "1" ]] && exit 0
+
+if command -v git-lfs >/dev/null 2>&1; then
+  git lfs pre-push "$@"
+fi
+
+hook_run_step "check" "" mise run check

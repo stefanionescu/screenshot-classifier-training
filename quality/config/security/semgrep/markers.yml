@@ -1,0 +1,11 @@
+rules:
+    - id: yap-python-no-obsolete-markers
+      message: Do not use obsolete marker wording in Python source.
+      severity: ERROR
+      languages:
+          - generic
+      paths:
+          include:
+              - /src/**/*.py
+              - /quality/**/*.py
+      pattern-regex: '(?i)\b(?:legacy|deprecated|workaround|backward(?:\s|-)?compat(?:ible|ibility)|compatibility)\b'

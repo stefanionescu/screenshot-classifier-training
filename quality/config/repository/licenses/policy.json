@@ -1,0 +1,212 @@
+{
+    "allowed_licenses": ["Apache-2.0", "ISC", "MIT", "Python-2.0"],
+    "package_exemptions": [
+        {
+            "package": "aiohttp",
+            "licenses": ["Apache-2.0 AND MIT"],
+            "reason": "The package publishes a composite expression of approved permissive licenses."
+        },
+        {
+            "package": "boolean-py",
+            "licenses": ["BSD-2-Clause"],
+            "reason": "The package uses the permissive two-clause BSD license."
+        },
+        {
+            "package": "certifi",
+            "licenses": ["MPL-2.0"],
+            "reason": "The Mozilla Public License applies to the certificate bundle package, not repository source."
+        },
+        {
+            "package": "cffi",
+            "licenses": ["MIT-0"],
+            "reason": "The package uses the permissive MIT No Attribution license."
+        },
+        {
+            "package": "chardet",
+            "licenses": ["LGPL"],
+            "reason": "The weak-copyleft license applies to the unmodified dependency, not repository source."
+        },
+        {
+            "package": "click",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "colorama",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "cryptography",
+            "licenses": ["Apache-2.0 OR BSD-3-Clause"],
+            "reason": "The package offers a choice of approved permissive licenses."
+        },
+        {
+            "package": "fastjsonschema",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "fqdn",
+            "licenses": ["MPL-2.0"],
+            "reason": "The weak-copyleft license applies to the unmodified validation dependency, not repository source."
+        },
+        {
+            "package": "fsspec",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "grimp",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "httpcore",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "httpx",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "idna",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "import-linter",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "jinja2",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "jsonpointer",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "lxml",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "markupsafe",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "mpmath",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "multidict",
+            "licenses": ["Apache License 2.0"],
+            "reason": "Installed metadata spells out the approved Apache 2.0 license."
+        },
+        {
+            "package": "networkx",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "numpy",
+            "licenses": ["BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0"],
+            "reason": "The package publishes a composite expression for its code and bundled permissive components."
+        },
+        {
+            "package": "pillow",
+            "licenses": ["MIT-CMU"],
+            "reason": "The package uses the permissive MIT-CMU license."
+        },
+        {
+            "package": "prettytable",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "protobuf",
+            "licenses": ["3-Clause BSD License"],
+            "reason": "Installed metadata spells out the approved three-clause BSD license."
+        },
+        {
+            "package": "pyasn1",
+            "licenses": ["BSD-2-Clause"],
+            "reason": "The package uses the permissive two-clause BSD license."
+        },
+        {
+            "package": "pyasn1-modules",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "pycparser",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "pygments",
+            "licenses": ["BSD-2-Clause"],
+            "reason": "The package uses the permissive two-clause BSD license."
+        },
+        {
+            "package": "python-dateutil",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "python-dotenv",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "sympy",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "torch",
+            "licenses": [
+                "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT"
+            ],
+            "reason": "The package publishes a composite expression for its code and bundled permissive components."
+        },
+        {
+            "package": "torchvision",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "tqdm",
+            "licenses": ["MPL-2.0 AND MIT"],
+            "reason": "The package publishes a composite expression for its code and bundled components."
+        },
+        {
+            "package": "validate-pyproject",
+            "licenses": ["MPL-2.0 and MIT and BSD-3-Clause"],
+            "reason": "The development tool publishes a composite expression for its code and bundled components."
+        },
+        {
+            "package": "webcolors",
+            "licenses": ["BSD"],
+            "reason": "Installed metadata identifies the package's permissive BSD license."
+        },
+        {
+            "package": "webdataset",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        },
+        {
+            "package": "websockets",
+            "licenses": ["BSD-3-Clause"],
+            "reason": "The package uses the permissive three-clause BSD license."
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Validate commit message shape.
+set -euo pipefail
+
+message_file="${1-}"
+[[ -n ${message_file} && -f ${message_file} ]] || exit 0
+
+first_line="$(sed -n '1p' "${message_file}")"
+readonly first_line
+
+if [[ ${first_line} =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\([a-z0-9_-]+\))?:\ .+ ]]; then
+  exit 0
+fi
+
+printf '%s\n' 'error: commit message must use conventional commit format' >&2
+exit 1
